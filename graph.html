@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chart.js example</title>
+  </head>
+  <body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.1.0/papaparse.min.js"></script>
+
+    <script>
+      // Load the CSV file
+      Papa.parse("stock_prices.csv", {
+        download: true,
+        header: true,
+        complete: function (results) {
+          var stockName = results.data[0].Stock;
+          // Parse the data into a format that Chart.js can understand
+
+          var labels = results.data.map((row) => row.Date);
+          var data = results.data.map((row) => row.Open);
+
+          // Create the chart
+          const ctx = document.getElementById("myChart");
+          new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: stockName,
+                  data: data,
+                  borderColor: "rgb(255, 99, 132)",
+                  backgroundColor: "rgba(255, 99, 132, 0.2)",
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        },
+      });
+    </script>
+  </body>
+</html>
