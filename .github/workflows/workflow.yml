@@ -13,5 +13,6 @@ jobs:
         run: |
           pip install yfinance
           pip install pandas
+          npm uninstall d3.js
       - name: Run script
         run: python stock.py
