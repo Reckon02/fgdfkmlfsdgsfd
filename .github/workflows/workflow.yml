@@ -1,13 +1,17 @@
 name: Run script every 5 min
 
+
+
+
 on:
   schedule:
     - cron: '*/5 * * * *'
 
 jobs:
+
   run-script:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run script
-        run: python stock.py
+        run: pip install yfinance, pip install pandas, python stock.py
